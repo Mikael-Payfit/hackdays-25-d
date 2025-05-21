@@ -14,6 +14,12 @@ import { WorkscheduleController } from './workschedule.controller';
     {
       provide: 'WorkscheduleEdpClient',
       useFactory: () => {
+        if (process.env.LOCAL === 'true') {
+          return {
+            getPrivateEventStoreClient: () => ({}),
+          };
+        }
+
         return new EdpClient({
           serviceName: 'workschedule',
         });

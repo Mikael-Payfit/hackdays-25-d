@@ -22,23 +22,31 @@ export class WorkschedulePatternRegistryEdpService {
 
   async getWorkschedulePatternRegistryByJLCompanyId(jlCompanyId: string) {
     console.log('jlCompanyId', jlCompanyId);
-    const mapping = await this.mappingService.queryLastByExternalId({
-      externalId: jlCompanyId,
-      externalType: this.EXTERNAL_TYPE,
-      internalType: this.INTERNAL_TYPE,
-    });
-    console.log('workschedulePatternRegistryId', mapping.internalId);
 
-    const leaveRegistryEvents =
-      await this.privateEventStoreWorkschedulePatternRegistry
+    let events = [];
+    let workschedulePatternRegistryId = 'test';
+    if (process.env.LOCAL === 'true') {
+      throw new Error('Not implemented');
+    } else {
+      const mapping = await this.mappingService.queryLastByExternalId({
+        externalId: jlCompanyId,
+        externalType: this.EXTERNAL_TYPE,
+        internalType: this.INTERNAL_TYPE,
+      });
+
+      workschedulePatternRegistryId = mapping.internalId;
+      events = await this.privateEventStoreWorkschedulePatternRegistry
         .getEvents()
-        .of('subjectId', mapping.internalId)
+        .of('subjectId', workschedulePatternRegistryId)
         .fetchAll();
+    }
+
+    console.log('workschedulePatternRegistryId', workschedulePatternRegistryId);
 
     const aggregate = WorkschedulePatternRegistryAggregate.hydrate({
       initialState: [],
-      id: mapping.internalId,
-      events: leaveRegistryEvents,
+      id: workschedulePatternRegistryId,
+      events,
     });
 
     return {

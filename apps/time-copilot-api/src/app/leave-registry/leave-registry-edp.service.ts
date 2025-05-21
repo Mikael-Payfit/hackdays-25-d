@@ -29,7 +29,7 @@ export class LeaveRegistryEdpService {
     if (process.env.LOCAL === 'true') {
       leaveRegistryId = 'test';
       events = mockedEvents;
-
+    } else {
       const mapping = await this.mappingService.queryLastByExternalId({
         externalId: jlContractId,
         externalType: this.EXTERNAL_TYPE,
