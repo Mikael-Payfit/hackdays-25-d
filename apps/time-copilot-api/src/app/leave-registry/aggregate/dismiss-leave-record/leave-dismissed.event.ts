@@ -1,0 +1,65 @@
+import {
+  EdpBaseEvent,
+  EdpBasePayloadEvent,
+  EventProducerSchema,
+} from '@payfit/edp-sdk';
+import { IsDefined, IsNumber, IsUUID } from 'class-validator';
+import { JSONSchema } from 'class-validator-jsonschema';
+import { Actor } from '../../../common/models';
+import { LeaveRegistryPrivateEventsEnum } from '../core/leave-registry-private-events.enum';
+
+export interface ILeaveDismissedPayload {
+  leaveRecordId: string;
+  leaveRegistryId: string;
+  leaveRegistryVersion: number;
+  actor: Actor;
+}
+
+@EventProducerSchema({
+  eventType: LeaveRegistryPrivateEventsEnum.LEAVE_DISMISSED,
+  subjectType: 'leaveRegistry',
+  description: 'Leave dismissed',
+  majorVersion: 4,
+  schemaName: 'leave-dismissed',
+})
+export class LeaveDismissedPayload extends EdpBasePayloadEvent {
+  @IsUUID()
+  @IsDefined()
+  @JSONSchema({ description: 'The leave record id' })
+  public leaveRecordId: string;
+
+  @IsUUID()
+  @IsDefined()
+  @JSONSchema({ description: 'The leaveRegistry id' })
+  public leaveRegistryId: string;
+
+  @IsNumber()
+  @IsDefined()
+  @JSONSchema({ description: 'The leave registry version' })
+  public leaveRegistryVersion: number;
+
+  @IsDefined()
+  @JSONSchema({
+    description: 'The actor who dismissed the leave(id, name & role fields)',
+  })
+  public actor: Actor;
+
+  constructor(payload: ILeaveDismissedPayload) {
+    super();
+    this.leaveRecordId = payload.leaveRecordId;
+    this.leaveRegistryId = payload.leaveRegistryId;
+    this.leaveRegistryVersion = payload.leaveRegistryVersion;
+    this.actor = payload.actor;
+  }
+}
+
+export class LeaveDismissedEvent extends EdpBaseEvent<LeaveDismissedPayload> {
+  constructor(subjectId: string, payload: LeaveDismissedPayload) {
+    super({
+      subjectId,
+      eventDomain: 'HRIS_TIME',
+      eventType: LeaveRegistryPrivateEventsEnum.LEAVE_DISMISSED,
+      payload,
+    });
+  }
+}
