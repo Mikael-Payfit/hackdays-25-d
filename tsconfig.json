@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./apps/time-copilot"
+    },
+    {
+      "path": "./apps/time-copilot-api"
     }
   ]
 }
