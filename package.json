@@ -26,6 +26,8 @@
     "@payfit/edp-testing-helpers": "1.56.0",
     "@tailwindcss/postcss": "^4.1.7",
     "axios": "^1.6.0",
+    "class-transformer": "0.5.1",
+    "class-validator-jsonschema": "5.0.2",
     "clsx": "^2.1.1",
     "date-fns": "4.1.0",
     "framer-motion": "^12.12.1",
@@ -92,6 +94,7 @@
   "workspaces": [
     "apps/*",
     "apps",
-    "apps-e2e"
+    "apps-e2e",
+    "libs"
   ]
 }

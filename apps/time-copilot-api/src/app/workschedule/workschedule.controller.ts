@@ -1,16 +1,23 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { WorkschedulePatternRegistryEdpService } from './workschedule-pattern-registry/workschedule-pattern-registry-edp.service';
+import { Body, Controller, Post } from '@nestjs/common';
+import { WorkscheduleCalendarRecordEdpService } from './calendar-record-edp.service';
 
 @Controller('workschedule')
 export class WorkscheduleController {
   constructor(
-    private readonly workscheduleEdpService: WorkschedulePatternRegistryEdpService
+    private readonly workscheduleCalendarRecordEdpService: WorkscheduleCalendarRecordEdpService
   ) {}
 
-  @Get('pattern/:jlCompanyId')
-  getData(@Param('jlCompanyId') jlCompanyId: string) {
-    return this.workscheduleEdpService.getWorkschedulePatternRegistryByJLCompanyId(
-      jlCompanyId
+  @Post('calendar')
+  getData(
+    @Body()
+    body: {
+      jlContractId: string;
+      period: { begin: string; end: string };
+    }
+  ) {
+    return this.workscheduleCalendarRecordEdpService.getWorkscheduleCalendarRecordsForMondays(
+      body.jlContractId,
+      body.period
     );
   }
 }

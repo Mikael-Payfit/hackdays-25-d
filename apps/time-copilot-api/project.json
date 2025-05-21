@@ -1,0 +1,121 @@
+{
+  "name": "time-copilot-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/time-copilot-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/time-copilot-api",
+        "main": "apps/time-copilot-api/src/main.ts",
+        "tsConfig": "apps/time-copilot-api/tsconfig.app.json",
+        "isolatedConfig": true,
+        "webpackConfig": "apps/time-copilot-api/webpack.config.js",
+        "generatePackageJson": true,
+        "tsPlugins": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "classValidatorShim": true,
+              "introspectComments": true
+            }
+          }
+        ]
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "optimization": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "time-copilot-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "time-copilot-api:build:development"
+        },
+        "production": {
+          "buildTarget": "time-copilot-api:build:production"
+        }
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["yarn nx format:write --projects=time-copilot-api"]
+      },
+      "configurations": {
+        "check": {
+          "commands": ["yarn nx format:check --projects=time-copilot-api"]
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/time-copilot-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/time-copilot-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "build-image": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "docker build --build-arg NPM_TOKEN -f ./apps/time-copilot-api/Dockerfile . -t time-copilot-api --build-arg DD_GIT_REPOSITORY_URL=$(git config --get remote.origin.url) --build-arg DD_GIT_COMMIT_SHA=$(git rev-parse HEAD)"
+        ]
+      }
+    },
+    "push-image": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "docker tag time-copilot-api {args.url}/time-copilot-api:{args.tag}",
+          "docker push {args.url}/time-copilot-api:{args.tag}"
+        ],
+        "parallel": false
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "postTargets": ["time-copilot-api:github"],
+        "tagPrefix": "{projectName}-",
+        "allowEmptyRelease": true,
+        "skipCommit": true
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
+    }
+  },
+  "tags": []
+}
