@@ -1,5 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core';
+import { LibSQLStore } from '@mastra/libsql';
+import { Memory } from '@mastra/memory';
 import { Injectable } from '@nestjs/common';
 import { ToolMastraLeaveRegistry } from './tools/mastra.leave-registry.tool';
 
@@ -11,6 +13,16 @@ export class MastraAgent {
   ) {
     this.agent = new Agent({
       name: 'time',
+      memory: new Memory({
+        options: {
+          workingMemory: {
+            enabled: true,
+          },
+        },
+        storage: new LibSQLStore({
+          url: 'file:./local.db',
+        }),
+      }),
       instructions: `This agent will assist administrators with employee leave and schedule management by:
          - Querying databases to retrieve relevant data
          - Sending commands to APIs to create, view, modify, or cancel employee leaves and schedules
