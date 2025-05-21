@@ -14,7 +14,7 @@ This is a Proof of Concept (PoC) for a chatbot that provides access to HRIS Time
 - The chatbot interface should be a simple text-based chat UI
 
 ## Mastra Integration
-- The project uses mastraClient to access specialized tools
+- The project uses mastraClient to access specialized agents
 - Mastra integration code will be located in `apps/time-copilot-api/`
 - The chatbot will use mastra agents with custom tools to access HRIS data
 
@@ -24,6 +24,7 @@ The chatbot should support the following use cases:
 2. View time planning information
 3. View balance forecast for time off
 4. Add a new leave request
+The functionalities are enabled via mastra "tools" (done in the configuration of agents).
 
 ## User Flow
 - Users interact with a simple text-based chat interface
@@ -31,7 +32,7 @@ The chatbot should support the following use cases:
 - Relevant HRIS data is fetched and presented to the user
 - For this PoC, all users will have admin access (all data visible)
 
-## Technical Implementation
-- Frontend: Next.js React application with custom UI components (see [UI Components Guide](mdc:ui-components-guide.mdc)) in an NX repo
-- Backend tools: Custom Mastra tools that integrate with HRIS Time APIs
+## Technical Implementation (in an NX repo)
+- Frontend: Next.js "time-copilot", React application with custom UI components (see [UI Components Guide](mdc:ui-components-guide.mdc)) and a Mastra Client to use the backend mastra agents
+- Backend tools: Nest.js "time-copilot-api", Custom Mastra tools that integrate with HRIS Time APIs
 - Data flow: User request → mastraClient → HRIS Time API → formatted response

@@ -7,7 +7,8 @@ alwaysApply: false
 
 ## Available UI Components
 
-The application uses Tailwind components located in [apps/time-copilot/src/ui](mdc:apps/time-copilot/src/ui). These components provide a consistent design system for building the chatbot interface.
+The application uses Tailwind components located in [apps/time-copilot/src/ui](mdc:apps/time-copilot/src/ui). These components provide a consistent design system for building the chatbot interface. 
+Avoid modifying those directly except if mentionned otherwise (e.g. to change the look of a basic ui piece everywhere). Avoid re-creating them if they don't seem to fulfill your needs: review the capacility of the exisiting ui element and adapt to sue them (if it is too blocking ask the user).
 
 ## Core Components
 
@@ -134,9 +135,3 @@ export function LeaveBalanceDisplay({ balances }) {
 }
 ```
 
-## Key UI Features to Implement
-
-1. Chat interface with message history
-2. Leave request form using form components
-3. Data tables for displaying HRIS information
-4. Navigation between different features
