@@ -1,5 +1,6 @@
 'use client';
 
+import { chatService } from '@/app/lib/chatService';
 import { useEffect, useRef, useState } from 'react';
 import { ChatInput } from './ChatInput';
 import { ChatMessage, MessageType } from './ChatMessage';
@@ -28,34 +29,78 @@ export function ChatContainer() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = (text: string) => {
-    // Add user message
-    const userMessage: MessageType = {
-      id: `user-${Date.now()}`,
-      text,
-      sender: 'user',
-      timestamp: new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-
-    // Simulate bot response after a short delay
-    setTimeout(() => {
-      const botMessage: MessageType = {
-        id: `bot-${Date.now()}`,
-        text: 'OK',
-        sender: 'bot',
+  const handleSendMessage = async (text: string) => {
+    try {
+      // Add user message
+      const userMessage: MessageType = {
+        id: `user-${Date.now()}`,
+        text,
+        sender: 'user',
         timestamp: new Date().toLocaleTimeString([], {
           hour: '2-digit',
           minute: '2-digit',
         }),
       };
 
-      setMessages((prev) => [...prev, botMessage]);
-    }, 500);
+      // Add placeholder for bot response
+      const botPlaceholder: MessageType = {
+        id: `bot-${Date.now()}`,
+        text: '',
+        sender: 'bot',
+        isLoading: true,
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      };
+
+      setMessages((prev) => [...prev, userMessage, botPlaceholder]);
+
+      // Send message to agent
+      const response = await chatService.sendMessage(text);
+
+      // Process streaming response
+      let fullText = '';
+      await chatService.processStream(response, (chunk) => {
+        fullText += chunk;
+        // Update message with received chunk
+        setMessages((prevMessages) => {
+          const newMessages = [...prevMessages];
+          const botMessageIndex = newMessages.findIndex(
+            (msg) => msg.id === botPlaceholder.id
+          );
+
+          if (botMessageIndex !== -1) {
+            newMessages[botMessageIndex] = {
+              ...newMessages[botMessageIndex],
+              text: fullText,
+              isLoading: false,
+            };
+          }
+
+          return newMessages;
+        });
+      });
+    } catch (error) {
+      console.error('Error handling message:', error);
+      // Update error state in the bot message
+      setMessages((prevMessages) => {
+        const newMessages = [...prevMessages];
+        const botMessageIndex = newMessages.findIndex(
+          (msg) => msg.isLoading === true
+        );
+
+        if (botMessageIndex !== -1) {
+          newMessages[botMessageIndex] = {
+            ...newMessages[botMessageIndex],
+            text: 'Sorry, there was an error processing your request. Please try again later.',
+            isLoading: false,
+          };
+        }
+
+        return newMessages;
+      });
+    }
   };
 
   return (

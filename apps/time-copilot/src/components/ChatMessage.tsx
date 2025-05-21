@@ -1,6 +1,7 @@
 'use client';
 
 import { Avatar } from '@/ui/avatar';
+import ReactMarkdown from 'react-markdown';
 import { BotAvatar } from './BotAvatar';
 
 export type MessageType = {
@@ -8,6 +9,7 @@ export type MessageType = {
   text: string;
   sender: 'user' | 'bot';
   timestamp: string;
+  isLoading?: boolean;
 };
 
 type ChatMessageProps = {
@@ -41,7 +43,25 @@ export function ChatMessage({ message }: ChatMessageProps) {
               : 'bg-[#0F6FDE] text-white shadow-sm'
           }`}
         >
-          <p className="text-base leading-relaxed">{message.text}</p>
+          {message.isLoading ? (
+            <div className="flex items-center space-x-2">
+              <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"></div>
+              <div
+                className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"
+                style={{ animationDelay: '0.2s' }}
+              ></div>
+              <div
+                className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"
+                style={{ animationDelay: '0.4s' }}
+              ></div>
+            </div>
+          ) : isBot ? (
+            <div className="markdown-content prose max-w-none text-base leading-relaxed">
+              <ReactMarkdown>{message.text}</ReactMarkdown>
+            </div>
+          ) : (
+            <p className="text-base leading-relaxed">{message.text}</p>
+          )}
         </div>
         <p className="text-xs text-[#606466] mt-1.5 ml-1.5 font-light">
           {message.timestamp}
