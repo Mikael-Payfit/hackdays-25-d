@@ -1,5 +1,0 @@
-export * from './anti-corruption-jlCompanyId-not-found.error'
-export * from './pattern-definition-invalid-slots-size.error'
-export * from './pattern-name-already-exist.error'
-export * from './pattern-not-found.error'
-export * from './pattern-update-same-value.error'
