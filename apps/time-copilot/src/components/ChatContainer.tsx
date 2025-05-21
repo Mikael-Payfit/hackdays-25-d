@@ -57,29 +57,24 @@ export function ChatContainer() {
       setMessages((prev) => [...prev, userMessage, botPlaceholder]);
 
       // Send message to agent
-      const response = await chatService.sendMessage(text);
+      const responseText = await chatService.sendMessage(text);
 
-      // Process streaming response
-      let fullText = '';
-      await chatService.processStream(response, (chunk) => {
-        fullText += chunk;
-        // Update message with received chunk
-        setMessages((prevMessages) => {
-          const newMessages = [...prevMessages];
-          const botMessageIndex = newMessages.findIndex(
-            (msg) => msg.id === botPlaceholder.id
-          );
+      // Update the bot message with the response
+      setMessages((prevMessages) => {
+        const newMessages = [...prevMessages];
+        const botMessageIndex = newMessages.findIndex(
+          (msg) => msg.id === botPlaceholder.id
+        );
 
-          if (botMessageIndex !== -1) {
-            newMessages[botMessageIndex] = {
-              ...newMessages[botMessageIndex],
-              text: fullText,
-              isLoading: false,
-            };
-          }
+        if (botMessageIndex !== -1) {
+          newMessages[botMessageIndex] = {
+            ...newMessages[botMessageIndex],
+            text: responseText,
+            isLoading: false,
+          };
+        }
 
-          return newMessages;
-        });
+        return newMessages;
       });
     } catch (error) {
       console.error('Error handling message:', error);
@@ -103,24 +98,47 @@ export function ChatContainer() {
     }
   };
 
+  const clearChat = () => {
+    chatService.createNewThread();
+
+    const welcomeMessage: MessageType = {
+      id: `welcome-${Date.now()}`,
+      text: 'How can I help you with your time management today?',
+      sender: 'bot',
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+    };
+    setMessages([welcomeMessage]);
+  };
+
   return (
     <div className="flex flex-col h-full">
-      <div className="bg-white border-b border-[#E8E8EC] px-4 md:px-8 py-3 flex items-center shadow-sm">
-        <div className="h-8 w-8 rounded-full bg-[#0F6FDE] flex items-center justify-center mr-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 text-white"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-              clipRule="evenodd"
-            />
-          </svg>
+      <div className="bg-white border-b border-[#E8E8EC] px-4 md:px-8 py-3 flex items-center justify-between shadow-sm">
+        <div className="flex items-center">
+          <div className="h-8 w-8 rounded-full bg-[#0F6FDE] flex items-center justify-center mr-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 text-white"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <p className="font-medium text-[#082F63]">Time Assistant</p>
         </div>
-        <p className="font-medium text-[#082F63]">Time Assistant</p>
+        <button
+          onClick={clearChat}
+          className="text-sm text-gray-500 hover:text-gray-700"
+        >
+          Clear Chat
+        </button>
       </div>
 
       <div

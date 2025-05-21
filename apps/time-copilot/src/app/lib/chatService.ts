@@ -13,57 +13,46 @@ export interface Message {
 
 export class ChatService {
   private agent;
+  private threadId: string;
+  private resourceId = 'USER'; // Single user ID for this PoC
 
   constructor() {
     this.agent = mastraClient.getAgent('hrisTimeAssistant');
+    this.threadId = this.generateUUID();
+    console.log('Created new conversation thread:', this.threadId);
   }
 
-  async sendMessage(message: string): Promise<Response> {
+  private generateUUID(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
+  }
+
+  createNewThread(): void {
+    this.threadId = this.generateUUID();
+  }
+
+  async sendMessage(message: string): Promise<string> {
     try {
-      // Send message to agent and get streaming response
-      const response = await this.agent.stream({
+      const response = await this.agent.generate({
         messages: [{ role: 'user', content: message }],
+        threadId: this.threadId,
+        resourceId: this.resourceId,
+        memoryOptions: {
+          lastMessages: 20,
+        },
       });
 
-      return response;
+      return response.text || '';
     } catch (error) {
       console.error('Error sending message to agent:', error);
       throw error;
     }
-  }
-
-  // Helper method to process the stream
-  processStream(
-    response: Response,
-    onChunk: (text: string) => void
-  ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const processChunks = async () => {
-        try {
-          const reader = response.body?.getReader();
-          if (!reader) {
-            reject(new Error('Response body is not readable'));
-            return;
-          }
-
-          const decoder = new TextDecoder();
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) {
-              resolve();
-              break;
-            }
-
-            const chunk = decoder.decode(value);
-            onChunk(chunk);
-          }
-        } catch (error) {
-          reject(error);
-        }
-      };
-
-      processChunks();
-    });
   }
 }
 
