@@ -15,7 +15,7 @@ export class ChatService {
   private agent;
 
   constructor() {
-    this.agent = mastraClient.getAgent('hris-time-assistant');
+    this.agent = mastraClient.getAgent('hrisTimeAssistant');
   }
 
   async sendMessage(message: string): Promise<Response> {
