@@ -1,9 +1,9 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'HRIS Time Chatbot',
-  description:
-    'A chatbot interface for accessing HRIS Time repository data and actions',
+  title: 'Time Management Assistant',
+  description: 'AI assistant for managing your time and leave',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50">{children}</body>
+      <body className="min-h-screen bg-[#F9F9FB] antialiased">{children}</body>
     </html>
   );
 }

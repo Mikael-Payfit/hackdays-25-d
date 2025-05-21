@@ -1,13 +1,13 @@
 ---
 description: 
-globs: 
+globs: *.tsx
 alwaysApply: false
 ---
 # UI Components Guide for HRIS Time Chatbot
 
 ## Available UI Components
 
-The application uses shadcn/ui components located in [apps/time-copilot/src/ui](mdc:apps/time-copilot/src/ui). These components provide a consistent design system for building the chatbot interface.
+The application uses Tailwind components located in [apps/time-copilot/src/ui](mdc:apps/time-copilot/src/ui). These components provide a consistent design system for building the chatbot interface.
 
 ## Core Components
 
