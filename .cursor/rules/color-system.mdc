@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# HRIS Time Color System
+
+This document outlines the color system for the HRIS Time Chatbot application. Use these color values when styling components to maintain consistency.
+
+## Primary Colors
+
+The primary color palette consists of blue shades that form the core brand identity:
+
+- **Primary lowest** - `#EBF4FF` - rgb(235, 244, 255) - Very light blue for backgrounds and subtle highlights
+- **Primary low** - `#D9E9FF` - rgb(217, 233, 255) - Light blue for secondary backgrounds and hover states
+- **Primary default** - `#0F6FDE` - rgb(15, 111, 222) - Main brand blue for primary actions and key UI elements
+- **Primary high** - `#0157B2` - rgb(1, 87, 178) - Darker blue for hover states and emphasis
+- **Primary highest** - `#082F63` - rgb(8, 47, 99) - Darkest blue for text and important UI elements
+
+## Neutral Colors
+
+Neutrals are used for content, surfaces, and defining visual hierarchy:
+
+- **L0 (White)** - `#FFFFFF` - rgb(255, 255, 255) - Backgrounds, cards
+- **L1** - `#FCFCFD` - rgb(252, 252, 253) - Subtle backgrounds
+- **L2** - `#F9F9FB` - rgb(249, 249, 251) - Container backgrounds
+- **L3** - `#F0F0F3` - rgb(240, 240, 243) - Subtle input fields, dividers
+- **L4** - `#E8E8EC` - rgb(232, 232, 236) - Borders, disabled backgrounds
+- **L5** - `#E0E1E6` - rgb(224, 225, 230) - Secondary borders
+- **L6** - `#D9D9E0` - rgb(217, 217, 224) - Stronger borders
+- **L7** - `#CDCED6` - rgb(205, 206, 214) - Disabled text
+- **L8** - `#B9BBC6` - rgb(185, 187, 198) - Placeholder text
+- **L9** - `#8B8D98` - rgb(139, 141, 152) - Subdued text
+- **L10** - `#80838D` - rgb(128, 131, 141) - Secondary text
+- **L11** - `#606466` - rgb(96, 100, 108) - Primary text on light backgrounds
+- **L12** - `#1C2024` - rgb(28, 32, 36) - High contrast text
+
+## Functional Colors
+
+Functional colors communicate specific statuses or actions:
+
+- **Danger** - `#E5484D` - rgb(229, 72, 77) - Errors, destructive actions
+- **Info** - `#00A2C7` - rgb(0, 162, 199) - Informational messages, help
+- **Success** - `#46A758` - rgb(70, 167, 88) - Confirmations, completed actions
+- **Warning** - `#F76B15` - rgb(247, 107, 21) - Warnings, alerts requiring attention
+
+## Decorative Colors
+
+Two additional color palettes can be used sparingly for specific context:
+
+### Sunglow (for HR/Payroll)
+- **L2** - `#FFEBC2` - rgb(255, 235, 194) - Light yellow for HR backgrounds
+- **L9** - `#FFB60A` - rgb(255, 182, 10) - Stronger yellow for accents
+
+### Usage Guidelines
+
+1. Use Primary default (`#0F6FDE`) for main interactive elements (buttons, links)
+2. Use Primary highest (`#082F63`) for headings
+3. Use Neutral L12 (`#1C2024`) for body text to ensure readability
+4. Use Neutral L3-L6 for backgrounds, borders and separators
+5. Reserve functional colors for their semantic meanings only
+6. Keep decorative colors minimal and only for their designated contexts
