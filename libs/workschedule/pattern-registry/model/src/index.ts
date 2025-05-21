@@ -1,0 +1,6 @@
+export * from './lib/core'
+export * from './lib/core/workschedule-pattern-registry-initialized.event'
+export * from './lib/core/workschedule-pattern-registry-private-event-enum'
+export * from './lib/workweek-day-pattern'
+export * from './lib/workweek-half-days-pattern'
+export * from './lib/workweek-pattern'

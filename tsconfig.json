@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/time-copilot-api"
+    },
+    {
+      "path": "./libs"
     }
   ]
 }

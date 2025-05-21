@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { WorkscheduleCalendarRecordEdpService } from './calendar-record/calendar-record-edp.service';
+import { Body, Controller, Post } from '@nestjs/common';
+import { WorkscheduleCalendarRecordEdpService } from './calendar-record-edp.service';
 
 @Controller('workschedule')
 export class WorkscheduleController {
@@ -7,10 +7,17 @@ export class WorkscheduleController {
     private readonly workscheduleCalendarRecordEdpService: WorkscheduleCalendarRecordEdpService
   ) {}
 
-  @Get('calendar/:jlContractId')
-  getData(@Param('jlContractId') jlContractId: string) {
-    return this.workscheduleCalendarRecordEdpService.getWorkscheduleCalendarRecordByJLContractId(
-      jlContractId
+  @Post('calendar')
+  getData(
+    @Body()
+    body: {
+      jlContractId: string;
+      period: { begin: string; end: string };
+    }
+  ) {
+    return this.workscheduleCalendarRecordEdpService.getWorkscheduleCalendarRecordsForMondays(
+      body.jlContractId,
+      body.period
     );
   }
 }

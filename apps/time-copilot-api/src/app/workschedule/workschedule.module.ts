@@ -3,8 +3,8 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { Module } from '@nestjs/common';
 import { EdpClient } from '@payfit/edp-client';
 import { MappingService } from '../mapping/mapping.service';
-import { WorkscheduleCalendarRecordEdpService } from './calendar-record/calendar-record-edp.service';
 import { WorkscheduleController } from './workschedule.controller';
+import { WorkscheduleCalendarRecordEdpService } from './calendar-record-edp.service';
 
 @Module({
   imports: [],

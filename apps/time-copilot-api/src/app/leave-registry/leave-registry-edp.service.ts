@@ -1,9 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EdpClient, IPrivateEventStoreClient } from '@payfit/edp-client';
 import { IEdpBasePayloadEvent, IEdpEvent } from '@payfit/edp-models';
+import {
+  LeaveRegistryAggregate,
+  LeaveRegistrySnapshot,
+} from '@payfit/leave-registry-model';
 import { MappingService } from '../mapping/mapping.service';
-import { LeaveRegistryAggregate } from './aggregate/core/leave-registry.aggregate';
-import { LeaveRegistrySnapshot } from './aggregate/core/leave-registry.snapshot';
 import { mockedEvents } from './events-mock';
 
 @Injectable()
