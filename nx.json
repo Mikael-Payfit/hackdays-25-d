@@ -29,5 +29,32 @@
     "sharedGlobals": ["{workspaceRoot}/.circleci/config.yml"],
     "production": ["default", "!{projectRoot}/src/test-setup.[jt]s"]
   },
-  "nxCloudId": "68270221e97e671898b21c39"
+  "nxCloudId": "68270221e97e671898b21c39",
+  "plugins": [
+    {
+      "plugin": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    }
+  ],
+  "generators": {
+    "@nx/next": {
+      "application": {
+        "style": "tailwind",
+        "linter": "eslint"
+      }
+    }
+  }
 }

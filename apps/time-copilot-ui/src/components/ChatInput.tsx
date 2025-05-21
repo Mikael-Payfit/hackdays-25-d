@@ -1,7 +1,7 @@
 'use client';
 
+import { Button } from '@/ui/button';
 import React, { useState } from 'react';
-import { Button } from '../ui/button';
 
 type ChatInputProps = {
   onSendMessage: (message: string) => void;

@@ -1,0 +1,63 @@
+@import 'tailwindcss';
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .message-appear {
+    animation: messageAppear 0.3s ease-out;
+  }
+
+  @keyframes messageAppear {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Custom Markdown Table Styles */
+.markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+
+.markdown-content table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-content table td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-content table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.markdown-content table tr:hover {
+  background-color: #f0f4f8;
+}

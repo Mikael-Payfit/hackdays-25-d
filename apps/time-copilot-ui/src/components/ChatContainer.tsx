@@ -1,9 +1,9 @@
 'use client';
 
+import { chatService } from '@/app/lib/chatService';
 import { useEffect, useRef, useState } from 'react';
 import { ChatInput } from './ChatInput';
 import { ChatMessage, MessageType } from './ChatMessage';
-import { chatService } from '../app/lib/chatService';
 
 export function ChatContainer() {
   const [messages, setMessages] = useState<MessageType[]>([
