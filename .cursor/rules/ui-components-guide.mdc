@@ -1,0 +1,142 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# UI Components Guide for HRIS Time Chatbot
+
+## Available UI Components
+
+The application uses shadcn/ui components located in [apps/time-copilot/src/ui](mdc:apps/time-copilot/src/ui). These components provide a consistent design system for building the chatbot interface.
+
+## Core Components
+
+### Layout Components
+- [stacked-layout.tsx](mdc:apps/time-copilot/src/ui/stacked-layout.tsx) - Main content layout with header and footer
+- [sidebar-layout.tsx](mdc:apps/time-copilot/src/ui/sidebar-layout.tsx) - Layout with side navigation
+- [auth-layout.tsx](mdc:apps/time-copilot/src/ui/auth-layout.tsx) - Layout for authentication screens
+- [navbar.tsx](mdc:apps/time-copilot/src/ui/navbar.tsx) - Top navigation component
+- [sidebar.tsx](mdc:apps/time-copilot/src/ui/sidebar.tsx) - Side navigation menu component
+
+### Typography & Text
+- [text.tsx](mdc:apps/time-copilot/src/ui/text.tsx) - Basic text component with variants
+- [heading.tsx](mdc:apps/time-copilot/src/ui/heading.tsx) - Heading component for titles
+- [link.tsx](mdc:apps/time-copilot/src/ui/link.tsx) - Text link component
+
+### Form Controls
+- [input.tsx](mdc:apps/time-copilot/src/ui/input.tsx) - Text input field
+- [textarea.tsx](mdc:apps/time-copilot/src/ui/textarea.tsx) - Multi-line text input
+- [select.tsx](mdc:apps/time-copilot/src/ui/select.tsx) - Dropdown selector
+- [checkbox.tsx](mdc:apps/time-copilot/src/ui/checkbox.tsx) - Checkbox input
+- [radio.tsx](mdc:apps/time-copilot/src/ui/radio.tsx) - Radio button input
+- [switch.tsx](mdc:apps/time-copilot/src/ui/switch.tsx) - Toggle switch component
+- [button.tsx](mdc:apps/time-copilot/src/ui/button.tsx) - Button component with variants
+- [fieldset.tsx](mdc:apps/time-copilot/src/ui/fieldset.tsx) - Container for form fields
+
+### Advanced Form Controls
+- [combobox.tsx](mdc:apps/time-copilot/src/ui/combobox.tsx) - Searchable dropdown
+- [listbox.tsx](mdc:apps/time-copilot/src/ui/listbox.tsx) - Selectable list component
+
+### Data Display
+- [table.tsx](mdc:apps/time-copilot/src/ui/table.tsx) - Table for displaying data
+- [description-list.tsx](mdc:apps/time-copilot/src/ui/description-list.tsx) - Display key-value pairs
+- [badge.tsx](mdc:apps/time-copilot/src/ui/badge.tsx) - Label/badge component
+- [avatar.tsx](mdc:apps/time-copilot/src/ui/avatar.tsx) - User avatar component
+- [pagination.tsx](mdc:apps/time-copilot/src/ui/pagination.tsx) - Pagination controls
+
+### Feedback & Overlays
+- [alert.tsx](mdc:apps/time-copilot/src/ui/alert.tsx) - Alert/notification component
+- [dialog.tsx](mdc:apps/time-copilot/src/ui/dialog.tsx) - Modal dialog component
+- [dropdown.tsx](mdc:apps/time-copilot/src/ui/dropdown.tsx) - Dropdown menu component
+- [divider.tsx](mdc:apps/time-copilot/src/ui/divider.tsx) - Horizontal divider line
+
+## Building Custom Components
+
+Custom components should be created in the `apps/time-copilot/src/components` directory by composing the primitive UI components. Follow these patterns:
+
+1. Create functional components using TypeScript
+2. Import UI components using the @/ui path (e.g., `import { Button } from "@/ui/button"`)
+3. Use props for customization and data passing
+4. Follow naming convention: PascalCase for component names
+
+## Examples for the HRIS Time Chatbot
+
+### Chat Message Component
+
+```tsx
+// apps/time-copilot/src/components/ChatMessage.tsx
+import { Avatar } from "@/ui/avatar";
+import { Text } from "@/ui/text";
+
+type ChatMessageProps = {
+  message: string
+  isBot: boolean
+  timestamp: string
+}
+
+export function ChatMessage({ message, isBot, timestamp }: ChatMessageProps) {
+  return (
+    <div className="flex gap-3 p-4">
+      <Avatar name={isBot ? 'Bot' : 'User'} />
+      <div>
+        <Text variant="small" className="text-gray-500">{timestamp}</Text>
+        <Text>{message}</Text>
+      </div>
+    </div>
+  )
+}
+```
+
+### Leave Request Form
+
+```tsx
+// Example of a form component
+import { Fieldset } from "@/ui/fieldset";
+import { Input } from "@/ui/input";
+import { Select } from "@/ui/select";
+import { Button } from "@/ui/button";
+
+export function LeaveRequestForm() {
+  return (
+    <Fieldset legend="Request Time Off">
+      <Select label="Leave Type">
+        <option value="vacation">Vacation</option>
+        <option value="sick">Sick Leave</option>
+      </Select>
+      <Input type="date" label="Start Date" />
+      <Input type="date" label="End Date" />
+      <Button>Submit Request</Button>
+    </Fieldset>
+  )
+}
+```
+
+### Leave Balance Display
+
+```tsx
+// Example of a data display component
+import { DescriptionList } from "@/ui/description-list";
+import { Badge } from "@/ui/badge";
+
+export function LeaveBalanceDisplay({ balances }) {
+  return (
+    <div className="p-4 border rounded-lg">
+      <DescriptionList>
+        <DescriptionList.Item term="Vacation Balance" description={`${balances.vacation} days`} />
+        <DescriptionList.Item term="Sick Leave Balance" description={`${balances.sick} days`} />
+        <DescriptionList.Item 
+          term="Status" 
+          description={<Badge variant="success">Available</Badge>} 
+        />
+      </DescriptionList>
+    </div>
+  )
+}
+```
+
+## Key UI Features to Implement
+
+1. Chat interface with message history
+2. Leave request form using form components
+3. Data tables for displaying HRIS information
+4. Navigation between different features

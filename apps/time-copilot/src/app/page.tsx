@@ -1,3 +1,5 @@
+import { Input } from '@/ui/input';
+
 export default function Index() {
   /*
    * Replace the elements below with your own.
@@ -13,6 +15,7 @@ export default function Index() {
               <span> Hello there, </span>
               Welcome @hackdays-25-d/time-copilot 👋
             </h1>
+            <Input placeholder="Search" />
           </div>
 
           <div id="hero" className="rounded">

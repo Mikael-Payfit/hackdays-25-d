@@ -9,7 +9,7 @@ alwaysApply: true
 This is a Proof of Concept (PoC) for a chatbot that provides access to HRIS Time repository data and actions. The PoC focuses on demonstrating functionality without implementing auth, storage, or other production concerns.
 
 ## Frontend Structure
-- The frontend is built using Next.js with shadcn/ui components for the UI
+- The frontend is built using Next.js with custom UI components (see [UI Components Guide](mdc:ui-components-guide.mdc))
 - The main application is in `apps/time-copilot/`
 - The chatbot interface should be a simple text-based chat UI
 
@@ -32,6 +32,6 @@ The chatbot should support the following use cases:
 - For this PoC, all users will have admin access (all data visible)
 
 ## Technical Implementation
-- Frontend: Next.js React application with shadcn/ui components in an NX repo
+- Frontend: Next.js React application with custom UI components (see [UI Components Guide](mdc:ui-components-guide.mdc)) in an NX repo
 - Backend tools: Custom Mastra tools that integrate with HRIS Time APIs
 - Data flow: User request → mastraClient → HRIS Time API → formatted response
