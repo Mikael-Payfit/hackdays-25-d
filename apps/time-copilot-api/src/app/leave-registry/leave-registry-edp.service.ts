@@ -1,8 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EdpClient, IPrivateEventStoreClient } from '@payfit/edp-client';
+import { IEdpBasePayloadEvent, IEdpEvent } from '@payfit/edp-models';
 import { MappingService } from '../mapping/mapping.service';
 import { LeaveRegistryAggregate } from './aggregate/core/leave-registry.aggregate';
 import { LeaveRegistrySnapshot } from './aggregate/core/leave-registry.snapshot';
+import { mockedEvents } from './events-mock';
 
 @Injectable()
 export class LeaveRegistryEdpService {
@@ -22,23 +24,32 @@ export class LeaveRegistryEdpService {
 
   async getLeaveRegistriesByJLContractId(jlContractId: string) {
     console.log('jlContractId', jlContractId);
-    const mapping = await this.mappingService.queryLastByExternalId({
-      externalId: jlContractId,
-      externalType: this.EXTERNAL_TYPE,
-      internalType: this.INTERNAL_TYPE,
-    });
-    console.log('leaveRegistryId', mapping.internalId);
+    let events: IEdpEvent<IEdpBasePayloadEvent>[] = [];
+    let leaveRegistryId = 'test';
+    if (process.env.LOCAL === 'true') {
+      leaveRegistryId = 'test';
+      events = mockedEvents;
 
-    const leaveRegistryEvents = await this.privateEventStoreLeaveRegistry
-      .getEvents()
-      .of('subjectId', mapping.internalId)
-      .fetchAll();
+      const mapping = await this.mappingService.queryLastByExternalId({
+        externalId: jlContractId,
+        externalType: this.EXTERNAL_TYPE,
+        internalType: this.INTERNAL_TYPE,
+      });
+
+      leaveRegistryId = mapping.internalId;
+      events = await this.privateEventStoreLeaveRegistry
+        .getEvents()
+        .of('subjectId', mapping.internalId)
+        .fetchAll();
+    }
+
+    console.log('leaveRegistryId', leaveRegistryId);
 
     const aggregate = LeaveRegistryAggregate.hydrate({
-      snapshot: new LeaveRegistrySnapshot(mapping.internalId),
+      snapshot: new LeaveRegistrySnapshot(leaveRegistryId),
       jlContractId,
       jlCompanyId: 'testCompany',
-      events: leaveRegistryEvents,
+      events,
     });
 
     return {
