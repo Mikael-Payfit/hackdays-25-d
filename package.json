@@ -12,6 +12,7 @@
     "@aws-sdk/client-s3": "3.699.0",
     "@aws-sdk/lib-dynamodb": "3.699.0",
     "@headlessui/react": "^2.2.4",
+    "@mastra/client-js": "^0.1.22",
     "@mastra/core": "0.9.4",
     "@mastra/libsql": "0.0.4",
     "@mastra/memory": "0.3.4",
@@ -32,6 +33,7 @@
     "next": "~15.2.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-markdown": "^10.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "zod": "^3.24.4"
@@ -58,6 +60,7 @@
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@swc/jest": "~0.2.36",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/jest": "^29.5.12",
     "@types/lodash": "4.17.17",
     "@types/node": "~18.16.9",

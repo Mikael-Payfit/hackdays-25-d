@@ -1,0 +1,64 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Commenting Best Practices
+
+## When to Comment Code
+
+Comments should add value for future developers reading the code. Avoid redundant comments that simply repeat what the code already clearly expresses.
+
+### Good Comments:
+- Explain "why" something is done a certain way (only if it's not obvious)
+- Document complex algorithms or business logic
+- Explain workarounds for known issues
+- Document architectural decisions that will be useful for later reading
+- API documentation for public interfaces
+
+### Avoid Redundant Comments:
+- Comments that simply repeat what the function or variable name already tells you
+- Comments before self-descriptive method names (e.g., `// Create a new thread` before `createNewThread()`)
+- Obvious parameter descriptions
+- Commenting what a standard library function does
+
+## Guidelines
+
+1. Write self-documenting code with clear variable and function names
+2. Use comments to explain WHY, not WHAT (the code shows what, comments explain why)
+3. Keep comments up-to-date with code changes
+5. For TODOs, include specific information or ticket references
+
+## Examples
+
+### Poor:
+```javascript
+// Loop through users
+users.forEach(user => {
+  // Check if user is active
+  if (user.isActive) {
+    // Process user
+    processUser(user);
+  }
+});
+```
+
+### Better:
+```javascript
+users.forEach(user => {
+  if (user.isActive) {
+    processUser(user);
+  }
+});
+```
+
+### Good (when needed):
+```javascript
+// We must check isActive before processing to avoid billing issues
+// with suspended accounts (see JIRA-1234)
+users.forEach(user => {
+  if (user.isActive) {
+    processUser(user);
+  }
+});
+```
