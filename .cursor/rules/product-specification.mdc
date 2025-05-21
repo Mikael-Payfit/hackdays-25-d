@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# HRIS Time Chatbot PoC Specification
+
+## Overview
+This is a Proof of Concept (PoC) for a chatbot that provides access to HRIS Time repository data and actions. The PoC focuses on demonstrating functionality without implementing auth, storage, or other production concerns.
+
+## Frontend Structure
+- The frontend is built using Next.js with shadcn/ui components for the UI
+- The main application is in `apps/time-copilot/`
+- The chatbot interface should be a simple text-based chat UI
+
+## Mastra Integration
+- The project uses mastraClient to access specialized tools
+- Mastra integration code will be located in `apps/time-copilot-api/`
+- The chatbot will use mastra agents with custom tools to access HRIS data
+
+## Key Functionalities
+The chatbot should support the following use cases:
+1. View leaves (employee absences)
+2. View time planning information
+3. View balance forecast for time off
+4. Add a new leave request
+
+## User Flow
+- Users interact with a simple text-based chat interface
+- The chatbot processes natural language requests
+- Relevant HRIS data is fetched and presented to the user
+- For this PoC, all users will have admin access (all data visible)
+
+## Technical Implementation
+- Frontend: Next.js React application with shadcn/ui components in an NX repo
+- Backend tools: Custom Mastra tools that integrate with HRIS Time APIs
+- Data flow: User request → mastraClient → HRIS Time API → formatted response
