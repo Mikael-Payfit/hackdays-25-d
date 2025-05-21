@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { MastraModule } from './mastra/mastra.module';
+import { LeaveRegistryModule } from './leave-registry/leave-registry.module';
 
 @Module({
-  imports: [MastraModule],
+  imports: [LeaveRegistryModule],
   controllers: [],
   providers: [],
 })

@@ -41,6 +41,9 @@ export class LeaveRegistryEdpService {
       events: leaveRegistryEvents,
     });
 
-    return aggregate;
+    return {
+      dataStore: aggregate.getDataStore(),
+      history: aggregate.getHistory().sort((a, b) => a.eventTime - b.eventTime),
+    };
   }
 }

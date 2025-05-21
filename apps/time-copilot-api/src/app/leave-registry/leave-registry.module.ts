@@ -2,18 +2,14 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { Module } from '@nestjs/common';
 import { EdpClient } from '@payfit/edp-client';
-import { LeaveRegistryEdpService } from '../leave-registry/leave-registry-edp.service';
+import { LeaveRegistryEdpService } from './leave-registry-edp.service';
+import { LeaveRegistryController } from './leave-registry.controller';
 import { MappingService } from '../mapping/mapping.service';
-import { MastraAgent } from './mastra.agent';
-import { MastraController } from './mastra.controller';
-import { MastraService } from './mastra.service';
-import { ToolMastraLeaveRegistry } from './tools/mastra.leave-registry.tool';
 
 @Module({
   imports: [],
-  controllers: [MastraController],
+  controllers: [LeaveRegistryController],
   providers: [
-    LeaveRegistryEdpService,
     MappingService,
     {
       provide: 'LeaveRegistryEdpClient',
@@ -30,10 +26,7 @@ import { ToolMastraLeaveRegistry } from './tools/mastra.leave-registry.tool';
         return DynamoDBDocumentClient.from(client);
       },
     },
-    MastraAgent,
-    ToolMastraLeaveRegistry,
-    MastraService,
+    LeaveRegistryEdpService,
   ],
-  exports: [],
 })
-export class MastraModule {}
+export class LeaveRegistryModule {}
