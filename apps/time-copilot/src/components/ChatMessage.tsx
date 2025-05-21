@@ -1,8 +1,9 @@
 'use client';
 
-import { Avatar } from '@/ui/avatar';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { BotAvatar } from './BotAvatar';
+import { UserAvatar } from './UserAvatar';
 
 export type MessageType = {
   id: string;
@@ -56,8 +57,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
               ></div>
             </div>
           ) : isBot ? (
-            <div className="markdown-content prose max-w-none text-base leading-relaxed">
-              <ReactMarkdown>{message.text}</ReactMarkdown>
+            <div className="markdown-content prose max-w-none text-base leading-relaxed overflow-x-auto">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {message.text}
+              </ReactMarkdown>
             </div>
           ) : (
             <p className="text-base leading-relaxed">{message.text}</p>
@@ -70,11 +73,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
       {!isBot && (
         <div className="flex-shrink-0 mt-1">
-          <Avatar
-            initials="U"
-            className="h-10 w-10 bg-[#F0F0F3] text-[#60646C] shadow-sm"
-            alt="User"
-          />
+          <UserAvatar className="h-10 w-10 shadow-sm" />
         </div>
       )}
     </div>

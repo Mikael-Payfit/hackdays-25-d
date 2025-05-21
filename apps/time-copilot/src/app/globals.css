@@ -32,3 +32,32 @@
     }
   }
 }
+
+/* Custom Markdown Table Styles */
+.markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+
+.markdown-content table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-content table td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-content table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.markdown-content table tr:hover {
+  background-color: #f0f4f8;
+}
