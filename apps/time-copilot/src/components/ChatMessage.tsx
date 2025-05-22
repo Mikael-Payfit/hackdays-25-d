@@ -28,31 +28,31 @@ export function ChatMessage({ message }: ChatMessageProps) {
     >
       {isBot && (
         <div className="mr-3 flex-shrink-0 mt-1">
-          <BotAvatar className="h-10 w-10 bg-[#EBF4FF] shadow-sm" />
+          <BotAvatar className="h-10 w-10 shadow-sm" />
         </div>
       )}
 
       <div
-        className={`max-w-[75%] md:max-w-[60%] ${
+        className={`max-w-[80%] md:max-w-[70%] lg:max-w-[60%] ${
           isBot ? '' : 'order-first mr-3'
         }`}
       >
         <div
           className={`px-5 py-3.5 rounded-2xl ${
             isBot
-              ? 'bg-white border border-[#E8E8EC] shadow-sm text-[#1C2024]'
-              : 'bg-[#0F6FDE] text-white shadow-sm'
+              ? 'bg-white/90 backdrop-blur-sm border border-blue-100/60 shadow-sm text-[#1C2024]'
+              : 'bg-gradient-to-br from-[#2A80E8] to-[#1969CC] text-white shadow-md'
           }`}
         >
           {message.isLoading ? (
             <div className="flex items-center space-x-2">
-              <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"></div>
+              <div className="h-2.5 w-2.5 bg-blue-300/70 rounded-full animate-bounce"></div>
               <div
-                className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"
+                className="h-2.5 w-2.5 bg-blue-300/70 rounded-full animate-bounce"
                 style={{ animationDelay: '0.2s' }}
               ></div>
               <div
-                className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"
+                className="h-2.5 w-2.5 bg-blue-300/70 rounded-full animate-bounce"
                 style={{ animationDelay: '0.4s' }}
               ></div>
             </div>
@@ -73,7 +73,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
       {!isBot && (
         <div className="flex-shrink-0 mt-1">
-          <UserAvatar className="h-10 w-10 shadow-sm" />
+          <UserAvatar className="h-12 w-12 shadow-sm" />
         </div>
       )}
     </div>
