@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve-api": "ENV=dev nx serve time-copilot-api"
+    "serve-api": "ENV=dev nx serve time-copilot-api",
+    "serve-ui": "ENV=dev next dev"
   },
   "private": true,
   "dependencies": {

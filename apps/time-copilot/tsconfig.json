@@ -28,7 +28,8 @@
     "outDir": "dist",
     "rootDir": "src",
     "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "strict": false
   },
   "include": [
     "../../apps/time-copilot/.next/types/**/*.ts",
