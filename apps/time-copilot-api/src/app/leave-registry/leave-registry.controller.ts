@@ -9,6 +9,7 @@ export class LeaveRegistryController {
 
   @Get(':jlContractId')
   getData(@Param('jlContractId') jlContractId: string) {
+    console.log('appel GET /leave-registry/' + jlContractId);
     return this.leaveRegistryEdpService.getLeaveRegistryByJLContractId(
       jlContractId
     );
@@ -16,6 +17,7 @@ export class LeaveRegistryController {
 
   @Get('id/:jlContractId')
   async getLeaveRegistryId(@Param('jlContractId') jlContractId: string) {
+    console.log('appel GET /leave-registry/id/' + jlContractId);
     const leaveRegistryId =
       await this.leaveRegistryEdpService.getLeaveRegistryId(jlContractId);
     return {

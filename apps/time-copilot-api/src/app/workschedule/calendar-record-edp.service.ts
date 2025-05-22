@@ -18,10 +18,11 @@ import { LeaveRegistryEdpService } from '../leave-registry/leave-registry-edp.se
 import { MappingService } from '../mapping/mapping.service';
 @Injectable()
 export class WorkscheduleCalendarRecordEdpService {
-  hardCodedCompanyId = '682ee6d3adcee6b58113cdf7';
+  hardCodedCompanyId = '65e590e7489e5b86ddcd359b';
   hardCodedContracts: { contractId: string; name: string }[] = [
-    { contractId: '65e590f3173411001bde34d6', name: 'Male Test' },
-    { contractId: '65e590f1173411001bde34d5', name: 'Female Test' },
+    { contractId: '682f2d71907d1647b52e4179', name: 'Nigel Clockington' },
+    { contractId: '682f2e8590ecf695ae96f51e', name: 'Benedic Timebottom' },
+    { contractId: '682f2b9790ecf695ae96f4e7', name: 'Agatha Clockberry' },
   ];
 
   private readonly EXTERNAL_TYPE: string = 'jlContractId';

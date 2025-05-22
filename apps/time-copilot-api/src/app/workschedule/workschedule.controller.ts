@@ -15,6 +15,7 @@ export class WorkscheduleController {
       period: { begin: string; end: string };
     }
   ) {
+    console.log('appel POST /workschedule/calendar/', body);
     return this.workscheduleCalendarRecordEdpService.getWorkscheduleCalendarRecordsForMondays(
       body.jlContractId,
       body.period
@@ -28,6 +29,7 @@ export class WorkscheduleController {
       date: string;
     }
   ) {
+    console.log('appel POST /workschedule/team/', body);
     return this.workscheduleCalendarRecordEdpService.getWorkscheduleCalendarForDayForCompanyId(
       body.date
     );
