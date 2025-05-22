@@ -33,26 +33,26 @@ export function ChatMessage({ message }: ChatMessageProps) {
       )}
 
       <div
-        className={`max-w-[75%] md:max-w-[60%] ${
+        className={`max-w-[80%] md:max-w-[70%] lg:max-w-[60%] ${
           isBot ? '' : 'order-first mr-3'
         }`}
       >
         <div
           className={`px-5 py-3.5 rounded-2xl ${
             isBot
-              ? 'bg-white border border-[#E8E8EC] shadow-sm text-[#1C2024]'
-              : 'bg-[#0F6FDE] text-white shadow-sm'
+              ? 'bg-white/90 backdrop-blur-sm border border-blue-100/60 shadow-sm text-[#1C2024]'
+              : 'bg-gradient-to-br from-[#0F6FDE] to-[#0958B6] text-white shadow-md'
           }`}
         >
           {message.isLoading ? (
             <div className="flex items-center space-x-2">
-              <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"></div>
+              <div className="h-2.5 w-2.5 bg-blue-300/70 rounded-full animate-bounce"></div>
               <div
-                className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"
+                className="h-2.5 w-2.5 bg-blue-300/70 rounded-full animate-bounce"
                 style={{ animationDelay: '0.2s' }}
               ></div>
               <div
-                className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"
+                className="h-2.5 w-2.5 bg-blue-300/70 rounded-full animate-bounce"
                 style={{ animationDelay: '0.4s' }}
               ></div>
             </div>

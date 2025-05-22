@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { chatService } from '../app/lib/chatService';
+import { Button } from '../ui/button';
 import { ChatInput } from './ChatInput';
 import { ChatMessage, MessageType } from './ChatMessage';
-import { chatService } from '../app/lib/chatService';
 
 export function ChatContainer() {
   const [messages, setMessages] = useState<MessageType[]>([
@@ -114,36 +115,18 @@ export function ChatContainer() {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="bg-white border-b border-[#E8E8EC] px-4 md:px-8 py-3 flex items-center justify-between shadow-sm">
-        <div className="flex items-center">
-          <div className="h-8 w-8 rounded-full bg-[#0F6FDE] flex items-center justify-center mr-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 text-white"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          <p className="font-medium text-[#082F63]">Time Assistant</p>
-        </div>
-        <button
-          onClick={clearChat}
-          className="text-sm text-gray-500 hover:text-gray-700"
-        >
+    <div className="relative flex flex-col h-full w-full">
+      {/* Clear chat button in top-right corner */}
+      <div className="absolute top-4 right-4 z-10">
+        <Button onClick={clearChat} color="white" className="text-sm shadow-sm">
           Clear Chat
-        </button>
+        </Button>
       </div>
 
+      {/* Messages container */}
       <div
         ref={messageContainerRef}
-        className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-1 bg-[#F9F9FB]"
+        className="flex-1 overflow-y-auto px-4 md:px-8 py-6 pb-28 space-y-2 mt-10"
       >
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
@@ -151,8 +134,11 @@ export function ChatContainer() {
         <div ref={messagesEndRef} className="h-4" />
       </div>
 
-      <div className="border-t border-[#E8E8EC] bg-white py-4 px-4 md:px-8 shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
-        <ChatInput onSendMessage={handleSendMessage} />
+      {/* Floating input at the bottom */}
+      <div className="fixed bottom-6 left-0 right-0 px-4 py-3 md:px-8 md:py-4 z-10">
+        <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-blue-100">
+          <ChatInput onSendMessage={handleSendMessage} />
+        </div>
       </div>
     </div>
   );

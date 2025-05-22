@@ -19,13 +19,16 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-3">
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center gap-3 w-full px-2 py-1"
+    >
       <div className="flex-1 relative">
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          className="w-full py-3.5 px-5 bg-[#F0F0F3] border border-transparent rounded-full focus:outline-none focus:ring-2 focus:ring-[#0F6FDE] focus:bg-white text-[#1C2024] shadow-sm text-base placeholder:text-[#8B8D98] placeholder:font-light"
+          className="w-full py-3 px-5 bg-transparent border-none focus:outline-none focus:ring-0 text-[#1C2024] text-base placeholder:text-[#8B8D98] placeholder:font-light"
           placeholder="Type your message..."
         />
       </div>
@@ -33,7 +36,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
         type="submit"
         disabled={!inputValue.trim()}
         color="blue"
-        className="rounded-full h-12 w-12 p-0 flex items-center justify-center shadow-md"
+        className="rounded-full h-11 w-11 p-0 flex items-center justify-center shadow-md"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
