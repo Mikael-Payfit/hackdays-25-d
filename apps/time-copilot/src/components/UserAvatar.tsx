@@ -9,14 +9,14 @@ type UserAvatarProps = {
 export function UserAvatar({ className = '' }: UserAvatarProps) {
   return (
     <div
-      className={`relative flex items-center justify-center rounded-full bg-blue-50 border-2 border-white ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden rounded-full bg-blue-50 border-2 border-white ${className}`}
     >
       <Image
-        src="/person.svg"
+        src="/nigel-profile.png"
         alt="User avatar"
         width={48}
         height={48}
-        className="h-full w-full scale-110 p-0.5"
+        className="h-full w-full object-cover rounded-full"
         priority
       />
     </div>
