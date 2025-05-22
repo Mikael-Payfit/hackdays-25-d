@@ -34,5 +34,6 @@ import { LeaveRegistryController } from './leave-registry.controller';
     },
     LeaveRegistryEdpService,
   ],
+  exports: [LeaveRegistryEdpService],
 })
 export class LeaveRegistryModule {}

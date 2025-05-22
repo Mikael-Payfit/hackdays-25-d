@@ -1,7 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ISOFormatDate } from '@payfit/common-time-model';
 import { EdpClient, IPrivateEventStoreClient } from '@payfit/edp-client';
-import { WorkscheduleCalendarRecordAggregate } from '@payfit/workschedule/calendar-record-model';
+import {
+  PlannedWeekDay,
+  WorkscheduleCalendarRecordAggregate,
+} from '@payfit/workschedule/calendar-record-model';
 import {
   addDays,
   eachDayOfInterval,
@@ -11,9 +14,16 @@ import {
   parseISO,
   startOfDay,
 } from 'date-fns';
+import { LeaveRegistryEdpService } from '../leave-registry/leave-registry-edp.service';
 import { MappingService } from '../mapping/mapping.service';
 @Injectable()
 export class WorkscheduleCalendarRecordEdpService {
+  hardCodedCompanyId = '682ee6d3adcee6b58113cdf7';
+  hardCodedContracts: { contractId: string; name: string }[] = [
+    { contractId: '65e590f3173411001bde34d6', name: 'Male Test' },
+    { contractId: '65e590f1173411001bde34d5', name: 'Female Test' },
+  ];
+
   private readonly EXTERNAL_TYPE: string = 'jlContractId';
   private readonly INTERNAL_TYPE: string = 'employeeWorkscheduleRegistryId';
 
@@ -21,12 +31,54 @@ export class WorkscheduleCalendarRecordEdpService {
   constructor(
     @Inject('WorkscheduleEdpClient')
     private readonly edpClient: EdpClient,
-    private readonly mappingService: MappingService
+    private readonly mappingService: MappingService,
+    private readonly leaveRegistryEdpService: LeaveRegistryEdpService
   ) {
     this.privateEventStoreWorkscheduleCalendarRecord =
       this.edpClient.getPrivateEventStoreClient({
         name: 'ws-calendar-record',
       });
+  }
+
+  async getWorkscheduleCalendarForDayForCompanyId(date: string) {
+    console.log('getWorkscheduleCalendarForDayForCompanyId', date);
+
+    const result = [];
+    for (const contract of this.hardCodedContracts) {
+      const records = await this.getWorkscheduleCalendarRecordsForMondays(
+        contract.contractId,
+        { begin: date, end: date }
+      );
+      const day = this.findDateInCalendar(
+        date,
+        records[0].dataStore.workscheduleCalendarRecord.plannedWeek
+      );
+
+      const leaves =
+        await this.leaveRegistryEdpService.getLeaveRecordForDateForContract(
+          contract.contractId,
+          date
+        );
+      if (day) {
+        result.push({
+          contractId: contract.contractId,
+          name: contract.name,
+          day,
+          leaves,
+        });
+      }
+    }
+
+    return result;
+  }
+
+  findDateInCalendar(date: string, plannedWeek: PlannedWeekDay[]) {
+    for (const day of plannedWeek) {
+      if (day.date === date) {
+        return day;
+      }
+    }
+    return null;
   }
 
   async getWorkscheduleCalendarRecordByJLContractId(

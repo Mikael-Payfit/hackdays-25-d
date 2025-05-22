@@ -9,7 +9,7 @@ export class LeaveRegistryController {
 
   @Get(':jlContractId')
   getData(@Param('jlContractId') jlContractId: string) {
-    return this.leaveRegistryEdpService.getLeaveRegistriesByJLContractId(
+    return this.leaveRegistryEdpService.getLeaveRegistryByJLContractId(
       jlContractId
     );
   }

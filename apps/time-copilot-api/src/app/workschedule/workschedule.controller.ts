@@ -20,4 +20,16 @@ export class WorkscheduleController {
       body.period
     );
   }
+
+  @Post('team')
+  getTeam(
+    @Body()
+    body: {
+      date: string;
+    }
+  ) {
+    return this.workscheduleCalendarRecordEdpService.getWorkscheduleCalendarForDayForCompanyId(
+      body.date
+    );
+  }
 }

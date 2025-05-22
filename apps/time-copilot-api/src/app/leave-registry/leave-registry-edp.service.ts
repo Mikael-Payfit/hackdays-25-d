@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ISOFormatDate, MomentOfDay } from '@payfit/common-time-model';
 import { EdpClient, IPrivateEventStoreClient } from '@payfit/edp-client';
 import { IEdpBasePayloadEvent, IEdpEvent } from '@payfit/edp-models';
 import {
@@ -24,6 +25,29 @@ export class LeaveRegistryEdpService {
       });
   }
 
+  async getLeaveRecordForDateForContract(jlContractId: string, date: string) {
+    const leaveRegistry = await this.getLeaveRegistryByJLContractId(
+      jlContractId
+    );
+    const result = [];
+    for (const leaveRecord of leaveRegistry.dataStore.leaveRecords) {
+      if (
+        leaveRecord.isOverlapping({
+          begin: {
+            date: date as ISOFormatDate,
+            moment: MomentOfDay.BEGINNING,
+          },
+          end: {
+            date: date as ISOFormatDate,
+            moment: MomentOfDay.END,
+          },
+        })
+      ) {
+        result.push(leaveRecord);
+      }
+    }
+    return result;
+  }
   async getLeaveRegistryId(jlContractId: string): Promise<string> {
     const mapping = await this.mappingService.queryLastByExternalId({
       externalId: jlContractId,
@@ -32,7 +56,7 @@ export class LeaveRegistryEdpService {
     });
     return mapping?.internalId ?? null;
   }
-  async getLeaveRegistriesByJLContractId(jlContractId: string) {
+  async getLeaveRegistryByJLContractId(jlContractId: string) {
     console.log('jlContractId', jlContractId);
     let events: IEdpEvent<IEdpBasePayloadEvent>[] = [];
     let leaveRegistryId = 'test';
