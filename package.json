@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "serve-api": "ENV=dev nx serve time-copilot-api",
-    "serve-ui": "ENV=dev next dev"
+    "serve-ui": "ENV=dev nx run @hackdays-25-d/time-copilot:dev"
   },
   "private": true,
   "dependencies": {

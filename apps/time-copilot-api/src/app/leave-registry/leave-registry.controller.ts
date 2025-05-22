@@ -13,4 +13,9 @@ export class LeaveRegistryController {
       jlContractId
     );
   }
+
+  @Get('id/:jlContractId')
+  getLeaveRegistryId(@Param('jlContractId') jlContractId: string) {
+    return this.leaveRegistryEdpService.getLeaveRegistryId(jlContractId);
+  }
 }

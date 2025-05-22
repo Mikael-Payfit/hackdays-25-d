@@ -92,6 +92,18 @@ export class WorkscheduleCalendarRecordEdpService {
     // Filter to get only Mondays
     const mondays = allDays.filter((day) => isMonday(day));
 
+    // If period.begin is not a Monday, add the Monday before period.begin
+    let mondayBeforeStart = null;
+    if (!isMonday(startDate)) {
+      mondayBeforeStart = addDays(startDate, -1);
+      while (!isMonday(mondayBeforeStart)) {
+        mondayBeforeStart = addDays(mondayBeforeStart, -1);
+      }
+    }
+    if (mondayBeforeStart) {
+      mondays.unshift(mondayBeforeStart);
+    }
+
     const calendarRecords = [];
     for (const monday of mondays) {
       // Calculate the end of the week (Sunday)

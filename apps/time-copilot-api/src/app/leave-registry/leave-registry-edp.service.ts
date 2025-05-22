@@ -24,6 +24,14 @@ export class LeaveRegistryEdpService {
       });
   }
 
+  async getLeaveRegistryId(jlContractId: string): Promise<string> {
+    const mapping = await this.mappingService.queryLastByExternalId({
+      externalId: jlContractId,
+      externalType: this.EXTERNAL_TYPE,
+      internalType: this.INTERNAL_TYPE,
+    });
+    return mapping?.internalId ?? null;
+  }
   async getLeaveRegistriesByJLContractId(jlContractId: string) {
     console.log('jlContractId', jlContractId);
     let events: IEdpEvent<IEdpBasePayloadEvent>[] = [];
