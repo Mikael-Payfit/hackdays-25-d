@@ -115,7 +115,7 @@ export function ChatContainer() {
   };
 
   return (
-    <div className="relative flex flex-col h-full w-full">
+    <div className="relative flex flex-col h-full overflow-hidden">
       {/* Clear chat button in top-right corner */}
       <div className="absolute top-4 right-4 z-10">
         <Button onClick={clearChat} color="white" className="text-sm shadow-sm">
@@ -126,7 +126,7 @@ export function ChatContainer() {
       {/* Messages container */}
       <div
         ref={messageContainerRef}
-        className="flex-1 overflow-y-auto px-4 md:px-8 py-6 pb-28 space-y-2 mt-10"
+        className="flex-1 overflow-y-auto px-4 md:px-8 py-6 pb-32 space-y-2 mt-6"
       >
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
@@ -135,8 +135,8 @@ export function ChatContainer() {
       </div>
 
       {/* Floating input at the bottom */}
-      <div className="fixed bottom-6 left-0 right-0 px-4 py-3 md:px-8 md:py-4 z-10">
-        <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-blue-100">
+      <div className="absolute bottom-8 left-0 right-0 px-4 md:px-8 z-10">
+        <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-full shadow-lg border border-blue-100">
           <ChatInput onSendMessage={handleSendMessage} />
         </div>
       </div>

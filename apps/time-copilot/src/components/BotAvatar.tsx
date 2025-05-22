@@ -7,7 +7,7 @@ type BotAvatarProps = {
 export function BotAvatar({ className = '' }: BotAvatarProps) {
   return (
     <div
-      className={`relative flex items-center justify-center rounded-full ${className}`}
+      className={`relative flex items-center justify-center rounded-full bg-[#EBF4FF] ${className}`}
     >
       <svg
         width="40"

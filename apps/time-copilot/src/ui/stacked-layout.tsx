@@ -59,14 +59,14 @@ export function StackedLayout({
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
-    <div className="relative isolate flex min-h-svh w-full flex-col">
+    <div className="relative isolate flex flex-col h-full">
       {/* Sidebar on mobile */}
       <MobileSidebar open={showSidebar} close={() => setShowSidebar(false)}>
         {sidebar}
       </MobileSidebar>
 
       {/* Navbar */}
-      <header className="flex items-center px-4 bg-white/70 backdrop-blur-sm shadow-sm">
+      <header className="flex-shrink-0 flex items-center px-4 bg-white/70 backdrop-blur-sm shadow-sm">
         <div className="py-2.5 lg:hidden">
           <NavbarItem
             onClick={() => setShowSidebar(true)}
@@ -79,9 +79,9 @@ export function StackedLayout({
       </header>
 
       {/* Content */}
-      <main className="flex flex-1 flex-col pb-2 lg:px-2">
-        <div className="grow p-6 lg:rounded-lg lg:bg-white/80 lg:backdrop-blur-sm lg:p-10 lg:shadow-md lg:ring-1 lg:ring-blue-100 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
-          <div className="mx-auto max-w-6xl">{children}</div>
+      <main className="flex-1 overflow-auto">
+        <div className="h-full lg:rounded-lg lg:bg-white/80 lg:backdrop-blur-sm lg:shadow-md lg:ring-1 lg:ring-blue-100 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
+          <div className="h-full mx-auto max-w-6xl">{children}</div>
         </div>
       </main>
     </div>

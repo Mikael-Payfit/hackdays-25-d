@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">
+      <body className="antialiased">
         <div className="flex h-screen">
           {/* Desktop sidebar - visible on large screens */}
           <div className="hidden lg:block lg:w-64 lg:flex-shrink-0 bg-white/80 backdrop-blur-sm border-r border-blue-100 z-10">
@@ -61,7 +61,7 @@ export default function RootLayout({
           </div>
 
           {/* Main content with mobile navigation */}
-          <div className="flex-1 flex flex-col min-h-screen">
+          <div className="flex-1 flex flex-col h-screen">
             <StackedLayout
               navbar={
                 <Navbar className="bg-white/80 backdrop-blur-sm border-b border-blue-100 z-10">

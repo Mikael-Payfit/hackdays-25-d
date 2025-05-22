@@ -28,7 +28,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     >
       {isBot && (
         <div className="mr-3 flex-shrink-0 mt-1">
-          <BotAvatar className="h-10 w-10 bg-[#EBF4FF] shadow-sm" />
+          <BotAvatar className="h-10 w-10 shadow-sm" />
         </div>
       )}
 
@@ -41,7 +41,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
           className={`px-5 py-3.5 rounded-2xl ${
             isBot
               ? 'bg-white/90 backdrop-blur-sm border border-blue-100/60 shadow-sm text-[#1C2024]'
-              : 'bg-gradient-to-br from-[#0F6FDE] to-[#0958B6] text-white shadow-md'
+              : 'bg-gradient-to-br from-[#2A80E8] to-[#1969CC] text-white shadow-md'
           }`}
         >
           {message.isLoading ? (
@@ -73,7 +73,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
       {!isBot && (
         <div className="flex-shrink-0 mt-1">
-          <UserAvatar className="h-10 w-10 shadow-sm" />
+          <UserAvatar className="h-12 w-12 shadow-sm" />
         </div>
       )}
     </div>
