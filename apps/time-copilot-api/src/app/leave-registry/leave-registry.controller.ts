@@ -15,7 +15,11 @@ export class LeaveRegistryController {
   }
 
   @Get('id/:jlContractId')
-  getLeaveRegistryId(@Param('jlContractId') jlContractId: string) {
-    return this.leaveRegistryEdpService.getLeaveRegistryId(jlContractId);
+  async getLeaveRegistryId(@Param('jlContractId') jlContractId: string) {
+    const leaveRegistryId =
+      await this.leaveRegistryEdpService.getLeaveRegistryId(jlContractId);
+    return {
+      leaveRegistryId,
+    };
   }
 }
