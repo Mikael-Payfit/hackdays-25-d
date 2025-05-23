@@ -22,7 +22,7 @@ export class WorkscheduleCalendarRecordEdpService {
   hardCodedContracts: { contractId: string; name: string }[] = [
     { contractId: '682f2d71907d1647b52e4179', name: 'Nigel Clockington' },
     { contractId: '682f2e8590ecf695ae96f51e', name: 'Benedic Timebottom' },
-    { contractId: '682f2b9790ecf695ae96f4e7', name: 'Agatha Clockberry' },
+    { contractId: '682f2b9790ecf695ae96f4e7', name: 'Agatha Shiftberry' },
   ];
 
   private readonly EXTERNAL_TYPE: string = 'jlContractId';
