@@ -10,7 +10,7 @@ export function ChatContainer() {
   const [messages, setMessages] = useState<MessageType[]>([
     {
       id: 'welcome',
-      text: 'How can I help you with your time management today?',
+      text: `Hey ! I'm Time Copilot. How can I help you with your time management today?`,
       sender: 'bot',
       timestamp: new Date().toLocaleTimeString([], {
         hour: '2-digit',
@@ -104,7 +104,7 @@ export function ChatContainer() {
 
     const welcomeMessage: MessageType = {
       id: `welcome-${Date.now()}`,
-      text: 'How can I help you with your time management today?',
+      text: `Hey ! I'm Time Copilot. How can I help you with your time management today?`,
       sender: 'bot',
       timestamp: new Date().toLocaleTimeString([], {
         hour: '2-digit',
